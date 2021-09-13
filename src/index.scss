@@ -16,7 +16,7 @@
     box-sizing: border-box;
     background: rgba(0, 0, 0, 0.2);
 
-    #name {
+    .name {
       font-weight: bold;
     }
     ul {
@@ -32,6 +32,43 @@
       }
     }
     time {
+    }
+  }
+
+  #window-container {
+    width: 100%;
+    height: 100%;
+    padding: 10vh 10vw;
+    box-sizing: border-box;
+
+    #window {
+      border-radius: 12px;
+      overflow: hidden;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.3);
+
+      #title-bar {
+        width: 100%;
+        height: 32px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: rgba(0, 0, 0, 0.3);
+
+        .title {
+          color: white;
+          font-weight: bold;
+          font-size: 14px;
+        }
+      }
+
+      #term-container {
+        padding: 14px;
+
+        #term {
+          font-family: "Courier New", Courier, monospace;
+        }
+      }
     }
   }
 }
