@@ -1,0 +1,37 @@
+#desktop {
+  background-image: url(./assets/background.png);
+  width: 100vw;
+  height: 100vh;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+
+  nav {
+    height: 32px;
+    width: 100%;
+    padding: 0px 20px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    font-size: 14px;
+    box-sizing: border-box;
+    background: rgba(0, 0, 0, 0.2);
+
+    #name {
+      font-weight: bold;
+    }
+    ul {
+      flex: 1;
+      padding: 0px;
+      margin: 0px;
+      list-style-type: none;
+      display: flex;
+      justify-content: flex-start;
+
+      li {
+        padding: 0px 30px;
+      }
+    }
+    time {
+    }
+  }
+}
