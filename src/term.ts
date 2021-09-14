@@ -1,4 +1,3 @@
-import ForkTsCheckerWebpackPlugin from "fork-ts-checker-webpack-plugin";
 import { Nullable } from "./types";
 
 export class Term {
