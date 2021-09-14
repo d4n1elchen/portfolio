@@ -1,0 +1,31 @@
+.term-container {
+  color: white;
+}
+
+.cursor {
+  color: white;
+  animation: blink 1s step-end infinite;
+}
+
+.host {
+  color: #4bffdf;
+}
+
+.colon,
+.dollar {
+  color: #c4c4c4;
+}
+
+.cwd {
+  color: #5ce2ff;
+}
+
+@keyframes blink {
+  from,
+  to {
+    color: transparent;
+  }
+  50% {
+    color: white;
+  }
+}
