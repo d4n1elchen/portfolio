@@ -27,13 +27,26 @@ export class Term {
     this.cwd = "~";
 
     this.printed = this.getPrompt();
+    this.input = "";
 
     this.print();
+
+    // Capture keyboard input
+    const self = this;
+    document.addEventListener("keydown", function (event) {
+      if (event.key === "Backspace") {
+        self.input = self.input.slice(0, -1);
+      } else if (event.key === "Enter") {
+      } else {
+        self.input += event.key;
+      }
+      self.print();
+    });
   }
 
   print() {
     this.termDiv.innerHTML = this.wrapDiv(
-      this.printed + this.getCursor(),
+      this.printed + this.input + this.getCursor(),
       "term-container"
     );
     this.termDiv.scrollTop = this.termDiv.scrollHeight;

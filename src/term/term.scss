@@ -23,9 +23,9 @@
 @keyframes blink {
   from,
   to {
-    color: transparent;
+    color: white;
   }
   50% {
-    color: white;
+    color: transparent;
   }
 }
