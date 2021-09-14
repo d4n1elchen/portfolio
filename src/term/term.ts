@@ -1,6 +1,7 @@
 import { Nullable } from "./types";
 
 import "./term.scss";
+import { escapeHtml } from "./utils";
 
 export class Term {
   termDiv: HTMLDivElement;
@@ -37,7 +38,7 @@ export class Term {
       if (event.key === "Backspace") {
         self.input = self.input.slice(0, -1);
       } else if (event.key === "Enter") {
-      } else {
+      } else if (event.key.length == 1) {
         self.input += event.key;
       }
       self.print();
@@ -46,7 +47,7 @@ export class Term {
 
   print() {
     this.termDiv.innerHTML = this.wrapDiv(
-      this.printed + this.input + this.getCursor(),
+      this.printed + escapeHtml(this.input) + this.getCursor(),
       "term-container"
     );
     this.termDiv.scrollTop = this.termDiv.scrollHeight;
