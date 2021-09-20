@@ -11,7 +11,7 @@ jobs:
       - name: Checkout 🛎️
         uses: actions/checkout@v1
         with:
-          ref: source
+          ref: main
 
       - name: Cache node modules 💾
         uses: actions/cache@v1
