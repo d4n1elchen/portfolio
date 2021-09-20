@@ -36,12 +36,7 @@ export class Term {
     this.hostname = hostname;
     this.cwd = "~";
 
-    this.printed = this.getPrompt();
-    this.input = "";
-
     this.commands = new Map<string, Command>();
-
-    this.print();
 
     let self = this;
 
@@ -49,13 +44,7 @@ export class Term {
     this.addCommand({
       name: "help",
       callback: () => {
-        return replaceLineBreak(
-          `Welcome to Daniel's personal website!\n\nCurrent supported commands: ${Array.from(
-            self.commands
-          )
-            .map(([key, _]) => key)
-            .join(",")}\n\n`
-        );
+        return self.getHelp();
       },
     });
 
@@ -63,7 +52,6 @@ export class Term {
       name: "clear",
       callback: () => {
         self.printed = "";
-        console.log(self);
         return "";
       },
     });
@@ -82,6 +70,11 @@ export class Term {
       }
       self.print();
     });
+
+    // Print welcome message and prompt
+    this.printed = this.getWelcomeMsg() + this.getPrompt();
+    this.input = "";
+    this.print();
   }
 
   print() {
@@ -94,6 +87,34 @@ export class Term {
 
   wrapDiv(innerHTML: string, className: string) {
     return `<div class="${className}">${innerHTML}</div>`;
+  }
+
+  getWelcomeMsg() {
+    return (
+      replaceLineBreak(
+        escapeHtml(`
+ _____              _      _    _____ _                
+|  __ \\            (_)    | |  / ____| |               
+| |  | | __ _ _ __  _  ___| | | |    | |__   ___ _ __  
+| |  | |/ _\` | '_ \\| |/ _ \\ | | |    | '_ \\ / _ \\ '_ \\
+| |__| | (_| | | | | |  __/ | | |____| | | |  __/ | | |
+|_____/ \\__,_|_| |_|_|\\___|_|  \\_____|_| |_|\\___|_| |_|
+
+Nice to meet you! My name is Daniel Chen!
+
+`)
+      ) + this.getHelp()
+    );
+  }
+
+  getHelp() {
+    return replaceLineBreak(
+      `Welcome to Daniel's personal website!\n\nCurrent supported commands: ${Array.from(
+        this.commands
+      )
+        .map(([key, _]) => key)
+        .join(",")}\n\n`
+    );
   }
 
   getPrompt() {
