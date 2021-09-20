@@ -19,5 +19,5 @@ LinkedIn: <a href="https://www.linkedin.com/in/d4n1el/">https://www.linkedin.com
 
 `);
   },
-  help: "Usage:  about\n\nPrint some information about me",
+  help: "Usage:  about\n\nPrint some information about me\n",
 });

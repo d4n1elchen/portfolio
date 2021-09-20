@@ -92,17 +92,16 @@ export class Term {
   }
 
   getWelcomeMsg() {
-    return (
-      replaceLineBreak(
-        escapeHtml(`
+    return replaceLineBreak(
+      escapeHtml(`
  _____              _      _    _____ _                
 |  __ \\            (_)    | |  / ____| |               
 | |  | | __ _ _ __  _  ___| | | |    | |__   ___ _ __  
 | |  | |/ _\` | '_ \\| |/ _ \\ | | |    | '_ \\ / _ \\ '_ \\
 | |__| | (_| | | | | |  __/ | | |____| | | |  __/ | | |
 |_____/ \\__,_|_| |_|_|\\___|_|  \\_____|_| |_|\\___|_| |_|
-`) + "\nNice to meet you! My name is <mark>Daniel Chen</mark>!\n\n"
-      ) + this.getHelp()
+`) +
+        "\nNice to meet you! My name is <mark>Daniel Chen</mark>!\n\nType 'help' and hit enter to get available commands\n\n"
     );
   }
 
@@ -112,7 +111,7 @@ export class Term {
         this.commands
       )
         .map(([key, _]) => key)
-        .join(",")}\n\n`
+        .join(", ")}\n\nType '[COMMAND] help' to get help for each commands\n\n`
     );
   }
 
