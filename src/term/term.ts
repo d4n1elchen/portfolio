@@ -43,17 +43,39 @@ export class Term {
 
     this.print();
 
+    let self = this;
+
+    // Add utility commands
+    this.addCommand({
+      name: "help",
+      callback: () => {
+        return replaceLineBreak(
+          `Welcome to Daniel's personal website!\n\nCurrent supported commands: ${Array.from(
+            self.commands
+          )
+            .map(([key, _]) => key)
+            .join(",")}\n\n`
+        );
+      },
+    });
+
+    this.addCommand({
+      name: "clear",
+      callback: () => {
+        self.printed = "";
+        console.log(self);
+        return "";
+      },
+    });
+
     // Capture keyboard input
-    const self = this;
     document.addEventListener("keydown", function (event) {
       if (event.key === "Backspace") {
         self.input = self.input.slice(0, -1);
       } else if (event.key === "Enter") {
-        self.printed +=
-          escapeHtml(self.input) +
-          "<br>" +
-          self.execCommand(self.input) +
-          self.getPrompt();
+        self.printed += escapeHtml(self.input) + "<br>";
+        let res = self.execCommand(self.input);
+        self.printed += res + self.getPrompt();
         self.input = "";
       } else if (event.key.length == 1) {
         self.input += event.key;
@@ -100,7 +122,7 @@ export class Term {
     } else if (cmd.length === 0) {
       return "";
     } else {
-      return `Command not found: ${cmd}<br>`;
+      return `Command not found: ${escapeHtml(cmd)}<br>`;
     }
   }
 }

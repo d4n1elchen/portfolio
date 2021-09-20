@@ -9,5 +9,5 @@ export function escapeHtml(unsafe: string) {
 }
 
 export function replaceLineBreak(str: string) {
-  return str.replace("\n", "<br>");
+  return str.replace(/\n/g, "<br>");
 }
