@@ -6,7 +6,7 @@ import { escapeHtml, replaceLineBreak } from "./utils";
 export interface Command {
   name: string;
   text?: string;
-  callback?: () => string;
+  callback?: (args: string[]) => string;
   help?: string;
 }
 
@@ -46,6 +46,7 @@ export class Term {
       callback: () => {
         return self.getHelp();
       },
+      help: "Usage:  help\n\nPrint all available commands.\n",
     });
 
     this.addCommand({
@@ -54,6 +55,7 @@ export class Term {
         self.printed = "";
         return "";
       },
+      help: "Usage:  clear\n\nClear screen.\n",
     });
 
     // Capture keyboard input
@@ -99,10 +101,7 @@ export class Term {
 | |  | |/ _\` | '_ \\| |/ _ \\ | | |    | '_ \\ / _ \\ '_ \\
 | |__| | (_| | | | | |  __/ | | |____| | | |  __/ | | |
 |_____/ \\__,_|_| |_|_|\\___|_|  \\_____|_| |_|\\___|_| |_|
-
-Nice to meet you! My name is Daniel Chen!
-
-`)
+`) + "\nNice to meet you! My name is <mark>Daniel Chen</mark>!\n\n"
       ) + this.getHelp()
     );
   }
@@ -132,18 +131,28 @@ Nice to meet you! My name is Daniel Chen!
     this.commands.set(cmd.name, cmd);
   }
 
-  execCommand(cmd: string) {
-    if (this.commands.has(cmd)) {
-      let command = this.commands.get(cmd);
-      if (command.callback) {
-        return command.callback();
+  execCommand(input: string) {
+    let args = input.split(" ");
+    let commandName = args.splice(0, 1)[0];
+    if (this.commands.has(commandName)) {
+      let command = this.commands.get(commandName);
+      if (args[0] == "help") {
+        if (command.help !== undefined) {
+          return replaceLineBreak(command.help);
+        } else {
+          return "The author is lazy. He didn't provide any help string...<br>";
+        }
       } else {
-        return replaceLineBreak(command.text);
+        if (command.callback) {
+          return command.callback(args);
+        } else {
+          return replaceLineBreak(command.text);
+        }
       }
-    } else if (cmd.length === 0) {
+    } else if (commandName.length === 0) {
       return "";
     } else {
-      return `Command not found: ${escapeHtml(cmd)}<br>`;
+      return `Command not found: ${escapeHtml(commandName)}<br>`;
     }
   }
 }
