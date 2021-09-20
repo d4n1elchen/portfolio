@@ -7,3 +7,7 @@ export function escapeHtml(unsafe: string) {
     .replace(/ /g, "&nbsp;")
     .replace(/'/g, "&#039;");
 }
+
+export function replaceLineBreak(str: string) {
+  return str.replace("\n", "<br>");
+}
