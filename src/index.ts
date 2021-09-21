@@ -1,5 +1,6 @@
 import { Term } from "./term/term";
 import { replaceLineBreak } from "./term/utils";
+import { Nullable } from "./term/types";
 
 import "normalize.css";
 import "./index.scss";
@@ -22,3 +23,20 @@ LinkedIn: <a href="https://www.linkedin.com/in/d4n1el/">https://www.linkedin.com
   },
   help: "Usage:  about\n\nPrint some information about me\n",
 });
+
+// Add timer for system time display
+const timeEl = document.getElementById("system-time") as HTMLTimeElement;
+updatSystemTime(timeEl);
+setInterval(updatSystemTime.bind(null, timeEl), 1000);
+
+function updatSystemTime(timeEl: Nullable<HTMLTimeElement>) {
+  const now = new Date();
+  timeEl.setAttribute("datetime", now.toISOString());
+  timeEl.innerText = now.toLocaleString("en-US", {
+    weekday: "short",
+    month: "short",
+    day: "numeric",
+    hour: "numeric",
+    minute: "numeric",
+  });
+}
