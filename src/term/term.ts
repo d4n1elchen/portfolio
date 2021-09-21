@@ -101,7 +101,16 @@ export class Term {
 | |__| | (_| | | | | |  __/ | | |____| | | |  __/ | | |
 |_____/ \\__,_|_| |_|_|\\___|_|  \\_____|_| |_|\\___|_| |_|
 `) +
-        "\nNice to meet you! My name is <mark>Daniel Chen</mark>!\n\nType 'help' and hit enter to get available commands\n\n"
+        `
+Nice to meet you! My name is <mark>Daniel Chen</mark>!
+
+Email: <a href="mailto://daniel@ccns.ncku.edu.tw">daniel@ccns.ncku.edu.tw</a>
+Blog: <a href="https://blog.danielchen.cc/">https://blog.danielchen.cc/</a>
+LinkedIn: <a href="https://www.linkedin.com/in/d4n1el/">https://www.linkedin.com/in/d4n1el/</a>
+
+Type 'help' and hit enter to get available commands
+
+`
     );
   }
 
