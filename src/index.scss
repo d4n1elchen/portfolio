@@ -8,6 +8,10 @@
   position: relative;
 
   nav {
+    z-index: 5;
+    position: absolute;
+    top: 0;
+
     height: 32px;
     width: 100%;
     padding: 0px 20px;
@@ -31,6 +35,11 @@
 
       li {
         padding: 0px 30px;
+
+        a {
+          text-decoration: none;
+          color: black;
+        }
       }
     }
     time {
