@@ -1,4 +1,4 @@
-export function escapeHtml(unsafe: string) {
+export function escapeHtml(unsafe: string): string {
   return unsafe
     .replace(/&/g, "&amp;")
     .replace(/</g, "&lt;")
@@ -8,6 +8,6 @@ export function escapeHtml(unsafe: string) {
     .replace(/'/g, "&#039;");
 }
 
-export function replaceLineBreak(str: string) {
+export function replaceLineBreak(str: string): string {
   return str.replace(/\n/g, "<br>");
 }

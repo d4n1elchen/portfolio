@@ -1,6 +1,7 @@
 {
     "compilerOptions": {
       "outDir": "./dist/",
+      "resolveJsonModule": true,
       "moduleResolution": "node",
       "noImplicitAny": true,
       "allowSyntheticDefaultImports": true,

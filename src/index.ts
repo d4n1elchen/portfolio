@@ -5,6 +5,9 @@ import { Nullable } from "./term/types";
 import "normalize.css";
 import "./index.scss";
 
+import projectListJSON from "./assets/projectList.json";
+import { buildProjectItem, ProjectItem } from "./projectList/utils";
+
 const termDiv = document.getElementById("term") as HTMLDivElement;
 const term = new Term(termDiv, "daniel", "usc");
 
@@ -22,6 +25,19 @@ LinkedIn: <a href="https://www.linkedin.com/in/d4n1el/">https://www.linkedin.com
 `);
   },
   help: "Usage:  about\n\nPrint some information about me\n",
+});
+
+let projectList: ProjectItem[] = projectListJSON;
+term.addCommand({
+  name: "projects",
+  callback: () => {
+    let div = document.createElement("div");
+    projectList.forEach((item: ProjectItem) => {
+      div.appendChild(buildProjectItem(item));
+    });
+    return div.outerHTML;
+  },
+  help: "Usage:  projects\n\nList all my projects\n",
 });
 
 // Add timer for system time display
