@@ -10,6 +10,8 @@ export interface Command {
   help?: string;
 }
 
+// TODO: autocomplete, command history
+
 export class Term {
   termDiv: HTMLDivElement;
   printed: string;
@@ -21,6 +23,8 @@ export class Term {
   cwd: string;
 
   commands: Map<string, Command>;
+  history: string[];
+  historyCursor: number;
 
   constructor(
     termDiv: Nullable<HTMLDivElement>,
@@ -37,6 +41,9 @@ export class Term {
     this.cwd = "~";
 
     this.commands = new Map<string, Command>();
+
+    this.history = [];
+    this.historyCursor = 0;
 
     let self = this;
 
@@ -60,15 +67,41 @@ export class Term {
 
     // Capture keyboard input
     document.addEventListener("keydown", function (event) {
-      if (event.key === "Backspace") {
-        self.input = self.input.slice(0, -1);
-      } else if (event.key === "Enter") {
-        self.printed += escapeHtml(self.input) + "<br>";
-        let res = self.execCommand(self.input);
-        self.printed += res + self.getPrompt();
-        self.input = "";
-      } else if (event.key.length == 1) {
-        self.input += event.key;
+      switch (event.key) {
+        case "Backspace":
+          self.input = self.input.slice(0, -1);
+          break;
+        case "Up":
+        case "ArrowUp":
+          event.preventDefault();
+          if (self.historyCursor > 0) {
+            self.historyCursor--;
+            self.input = self.history[self.historyCursor];
+          }
+          break;
+        case "Down":
+        case "ArrowDown":
+          event.preventDefault();
+          if (self.historyCursor < self.history.length) {
+            self.historyCursor++;
+            self.input =
+              self.historyCursor == self.history.length
+                ? ""
+                : self.history[self.historyCursor];
+          }
+          break;
+        case "Enter":
+          self.printed += escapeHtml(self.input) + "<br>";
+          let res = self.execCommand(self.input);
+          self.printed += res + self.getPrompt();
+          self.history.push(self.input);
+          self.historyCursor = self.history.length;
+          self.input = "";
+          break;
+        default:
+          if (event.key.length == 1) {
+            self.input += event.key;
+          }
       }
       self.print();
     });
