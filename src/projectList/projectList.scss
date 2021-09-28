@@ -1,0 +1,24 @@
+.project-item {
+  .project-item-thumbnail {
+    float: left;
+    height: 60px;
+    margin-right: 20px;
+
+    img {
+      height: 100%;
+      width: auto;
+    }
+  }
+
+  .project-item-links {
+    list-style-type: none;
+
+    li {
+      display: inline-block;
+
+      &:not(:first-child) {
+        margin-left: 10px;
+      }
+    }
+  }
+}

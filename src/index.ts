@@ -7,6 +7,7 @@ import "./index.scss";
 
 import projectListJSON from "./assets/projectList.json";
 import { buildProjectItem, ProjectItem } from "./projectList/utils";
+import "./projectList/projectList.scss";
 
 const termDiv = document.getElementById("term") as HTMLDivElement;
 const term = new Term(termDiv, "daniel", "usc");
