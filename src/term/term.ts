@@ -65,6 +65,14 @@ export class Term {
       help: "Usage:  clear\n\nClear screen.\n",
     });
 
+    this.addCommand({
+      name: "history",
+      callback: () => {
+        return self.getHistory();
+      },
+      help: "Usage:  clear\n\nClear screen.\n",
+    });
+
     // Capture keyboard input
     document.addEventListener("keydown", function (event) {
       switch (event.key) {
@@ -154,6 +162,12 @@ Type 'help' and hit enter to get available commands
       )
         .map(([key, _]) => key)
         .join(", ")}\n\nType '[COMMAND] help' to get help for each commands\n\n`
+    );
+  }
+
+  getHistory() {
+    return replaceLineBreak(
+      this.history.map((command) => command + "\n").join("")
     );
   }
 
