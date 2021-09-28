@@ -7,5 +7,14 @@
       { "name": "Link", "url": "/" },
       { "name": "GitHub", "url": "https://github.com/d4n1elchen/portfolio" }
     ]
+  },
+  {
+    "name": "CCNS Radio",
+    "thumbnail": "./assets/ccns_radio.png",
+    "description": "An online radio system.",
+    "links": [
+      { "name": "Link", "url": "https://radio.ccns.io/" },
+      { "name": "GitHub", "url": "https://github.com/ccns/CCNS-Radio" }
+    ]
   }
 ]
