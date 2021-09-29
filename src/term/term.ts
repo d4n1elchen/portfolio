@@ -74,49 +74,54 @@ export class Term {
     });
 
     // Capture keyboard input
-    document.addEventListener("keydown", function (event) {
-      switch (event.key) {
-        case "Backspace":
-          self.input = self.input.slice(0, -1);
-          break;
-        case "Up":
-        case "ArrowUp":
-          event.preventDefault();
-          if (self.historyCursor > 0) {
-            self.historyCursor--;
-            self.input = self.history[self.historyCursor];
-          }
-          break;
-        case "Down":
-        case "ArrowDown":
-          event.preventDefault();
-          if (self.historyCursor < self.history.length) {
-            self.historyCursor++;
-            self.input =
-              self.historyCursor == self.history.length
-                ? ""
-                : self.history[self.historyCursor];
-          }
-          break;
-        case "Enter":
-          self.printed += escapeHtml(self.input) + "<br>";
-          let res = self.execCommand(self.input);
-          self.printed += res + self.getPrompt();
-          self.history.push(self.input);
-          self.historyCursor = self.history.length;
-          self.input = "";
-          break;
-        default:
-          if (event.key.length == 1) {
-            self.input += event.key;
-          }
-      }
-      self.print();
-    });
+    document.addEventListener("keydown", this.handleKeydown.bind(this));
+
+    // Support touch keyboard
+    this.termDiv.setAttribute("contenteditable", "true");
+    this.termDiv.style.caretColor = "transparent";
 
     // Print welcome message and prompt
     this.printed = this.getWelcomeMsg() + this.getPrompt();
     this.input = "";
+    this.print();
+  }
+
+  handleKeydown(event: KeyboardEvent) {
+    event.preventDefault();
+    switch (event.key) {
+      case "Backspace":
+        this.input = this.input.slice(0, -1);
+        break;
+      case "Up":
+      case "ArrowUp":
+        if (this.historyCursor > 0) {
+          this.historyCursor--;
+          this.input = this.history[this.historyCursor];
+        }
+        break;
+      case "Down":
+      case "ArrowDown":
+        if (this.historyCursor < this.history.length) {
+          this.historyCursor++;
+          this.input =
+            this.historyCursor == this.history.length
+              ? ""
+              : this.history[this.historyCursor];
+        }
+        break;
+      case "Enter":
+        this.printed += escapeHtml(this.input) + "<br>";
+        let res = this.execCommand(this.input);
+        this.printed += res + this.getPrompt();
+        this.history.push(this.input);
+        this.historyCursor = this.history.length;
+        this.input = "";
+        break;
+      default:
+        if (event.key.length == 1) {
+          this.input += event.key;
+        }
+    }
     this.print();
   }
 
